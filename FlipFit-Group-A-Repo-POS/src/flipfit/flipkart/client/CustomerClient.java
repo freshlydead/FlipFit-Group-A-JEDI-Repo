@@ -21,9 +21,12 @@ public class CustomerClient {
         System.out.println(ColourConstants.CYAN + "-----------------------Welcome to FlipFit: Your Fitness Partner--------------------" + ColourConstants.RESET);
         System.out.println(ColourConstants.CYAN + "-----------------------------------------------------------------------------------" + ColourConstants.RESET);
         System.out.println(ColourConstants.PASTEL_YELLOW + "1. Book slot" + ColourConstants.RESET);
-        System.out.println(ColourConstants.PASTEL_YELLOW + "2. View all booked slots" + ColourConstants.RESET);
-        System.out.println(ColourConstants.PASTEL_YELLOW + "3. Cancel booked slot" + ColourConstants.RESET);
-        System.out.println(ColourConstants.PASTEL_YELLOW + "4. Logout" + ColourConstants.RESET);
+        System.out.println(ColourConstants.PASTEL_YELLOW + "2. View Gyms" + ColourConstants.RESET);
+        System.out.println(ColourConstants.PASTEL_YELLOW + "3. View All Slots" + ColourConstants.RESET);
+        System.out.println(ColourConstants.PASTEL_YELLOW + "4. Book Slots" + ColourConstants.RESET);
+        System.out.println(ColourConstants.PASTEL_YELLOW + "5. View all booked slots" + ColourConstants.RESET);
+        System.out.println(ColourConstants.PASTEL_YELLOW + "6. Cancel booked slot" + ColourConstants.RESET);
+        System.out.println(ColourConstants.PASTEL_YELLOW + "7. Logout" + ColourConstants.RESET);
         System.out.println(ColourConstants.CYAN + "-----------------------------------------------------------------------------------" + ColourConstants.RESET);
 
         Scanner scanner = new Scanner(System.in);
