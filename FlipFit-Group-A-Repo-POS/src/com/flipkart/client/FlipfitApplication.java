@@ -83,8 +83,17 @@ public class FlipfitApplication {
         User user = userService.login(username, password);
         if (user != null) {
             System.out.println(ColourConstants.PASTEL_GREEN + "Logged in successfully." + ColourConstants.RESET);
-            String roleId = user.getRoleId();
 
+            // Get current date and time
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = now.format(formatter);
+
+            // Display username and date/time
+            System.out.println("Username: " + user.getUsername());
+            System.out.println("Current Date and Time: " + formattedDateTime);
+
+            String roleId = user.getRoleId();
             switch (roleId) {
                 case "A":
                     System.out.println(ColourConstants.PASTEL_YELLOW + "Welcome Admin !!!" + ColourConstants.RESET);
