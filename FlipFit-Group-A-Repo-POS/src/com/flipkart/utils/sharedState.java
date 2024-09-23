@@ -39,5 +39,5 @@ public class sharedState {
 
     public static int getCntSlot() {return cntSlot;}
 
-    public static void incrementCntSlot() {cntCity++;}
+    public static void incrementCntSlot() {cntSlot++;}
 }

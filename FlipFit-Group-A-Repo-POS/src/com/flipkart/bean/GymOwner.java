@@ -9,6 +9,7 @@ public class GymOwner extends User {
     private String email;
     private String contactNo;
     private int age;
+    private String upiId;
     public List<GymCenter> gymCenters;
 
     /* Constructor to initialize a GymOwner object.
@@ -23,12 +24,13 @@ public class GymOwner extends User {
      roleId: Role ID of the gym owner (inherited from User class).
      */
 
-    public GymOwner(String username, String name, String email, String contactNo, int age, String password, String id, String roleId) {
+    public GymOwner(String username, String name, String email, String contactNo, int age, String password, String id, String roleId, String upiId) {
         super(username, password, id, roleId);  // Call to the superclass (User) constructor.
         this.name = name;
         this.email = email;
         this.contactNo = contactNo;
         this.age = age;
+        this.upiId = upiId;
         this.gymCenters = new ArrayList<>();   // Initialize the gymCenters list.
     }
 
@@ -70,6 +72,14 @@ public class GymOwner extends User {
     // Setter for age.
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public void setUpiId(String upiId){
+        this.upiId = upiId;
+    }
+
+    public String getUpiId(){
+        return upiId;
     }
 
     // Getter for gymCenters.

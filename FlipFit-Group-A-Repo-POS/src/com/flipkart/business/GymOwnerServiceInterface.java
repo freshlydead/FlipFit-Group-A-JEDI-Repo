@@ -15,7 +15,7 @@ public interface GymOwnerServiceInterface {
     /**
      * Creates a new gym owner with the provided details.
      */
-    public void createGymOwner(String username, String name, String mail, String phone, int age, String password);
+    public void createGymOwner(String username, String name, String mail, String phone, int age, String password, String upiId);
 
     /**
      * Adds a gym center associated with the given user.

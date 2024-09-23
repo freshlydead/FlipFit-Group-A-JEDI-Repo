@@ -65,12 +65,12 @@ public class GymOwnerService implements GymOwnerServiceInterface {
     /**
      * Creates a new gym owner with the provided details.
      */
-    public void createGymOwner(String username, String name, String mail, String phone, int age, String password) {
+    public void createGymOwner(String username, String name, String mail, String phone, int age, String password, String upiId) {
         System.out.println("Registering Gym Owner");
         String id = "0" + sharedState.getCntUsers();
         sharedState.incrementCntUsers();
         Role role = new Role("B", "GymOwner");
-        GymOwner gymOwner = new GymOwner(username, name, mail, phone, age, password, id, role.getRoleID());
+        GymOwner gymOwner = new GymOwner(username, name, mail, phone, age, password, id, role.getRoleID(), upiId);
 //        PendingGymOwnerMap.put(id, gymOwner);
         User user = new User(username, password, id, role.getRoleID());
 //        userService.addUser(user);
@@ -228,4 +228,6 @@ public class GymOwnerService implements GymOwnerServiceInterface {
             System.out.println("Something went wrong, please try again.");
         }
     }
+
 }
+

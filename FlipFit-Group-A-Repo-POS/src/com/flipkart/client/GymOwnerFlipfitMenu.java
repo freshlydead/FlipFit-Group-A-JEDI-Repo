@@ -47,8 +47,10 @@ public class GymOwnerFlipfitMenu {
         String mail = scanner.nextLine();
         System.out.println(ColourConstants.PASTEL_YELLOW + "Enter your Age" + ColourConstants.RESET);
         int age = Integer.parseInt(scanner.nextLine());
+        System.out.println(ColourConstants.PASTEL_YELLOW + "Enter your Account Number" + ColourConstants.RESET);
+        String upiId = scanner.nextLine();
 
-        gymOwnerServiceInterface.createGymOwner(username, name, mail, phone, age, password);
+        gymOwnerServiceInterface.createGymOwner(username, name, mail, phone, age, password, upiId);
     }
 
     /**

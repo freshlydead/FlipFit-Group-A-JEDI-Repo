@@ -73,8 +73,9 @@ public class AdminDAOImpl {
                     String email = resultSet.getString("email");
                     String contactNo = resultSet.getString("contactNo");
                     int age = resultSet.getInt("age");
+                    String upiId = resultSet.getString("upiId");
 
-                    GymOwner gymO = new GymOwner(username, name, email, contactNo, age, "password", userid, "B");
+                    GymOwner gymO = new GymOwner(username, name, email, contactNo, age, "password", userid, "B", upiId);
                     pendingGymOwners.add(gymO);
             }
         } catch (SQLException e) {
@@ -102,8 +103,9 @@ public class AdminDAOImpl {
                     String email = resultSet.getString("email");
                     String contactNo = resultSet.getString("contactNo");
                     int age = resultSet.getInt("age");
+                    String upiId = resultSet.getString("upiId");
 
-                    GymOwner gymO = new GymOwner(username, name, email, contactNo, age, "password", userid, "B");
+                    GymOwner gymO = new GymOwner(username, name, email, contactNo, age, "password", userid, "B", upiId);
                     gymOwners.add(gymO);
             }
         } catch (SQLException e) {

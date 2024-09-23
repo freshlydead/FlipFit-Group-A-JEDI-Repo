@@ -31,7 +31,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean registerGymOwner(GymOwner gymOwner) {
-        String sql = "INSERT INTO gym_owner (username, userid, name, email, contactNo, age, approval) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO gym_owner (username, userid, name, email, contactNo, age, upiId, approval) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = dbutils.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, gymOwner.getUsername());
@@ -40,7 +40,8 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(4, gymOwner.getEmail());
             statement.setString(5, gymOwner.getContactNo());
             statement.setInt(6, gymOwner.getAge());
-            statement.setInt(7, 0);
+            statement.setString(7,gymOwner.getUpiId());
+            statement.setInt(8, 0);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

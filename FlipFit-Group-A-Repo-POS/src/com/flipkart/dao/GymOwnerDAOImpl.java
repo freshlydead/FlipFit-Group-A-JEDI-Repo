@@ -84,8 +84,9 @@ public class GymOwnerDAOImpl implements GymOwnerDAO {
                     String email = resultSet.getString("email");
                     String contactNo = resultSet.getString("contactNo");
                     int age = resultSet.getInt("age");
+                    String upiId = resultSet.getString("upiId");
 
-                    gymOwner = new GymOwner(username, name, email, contactNo, age, user.getPassword(), userid, user.getRoleId());
+                    gymOwner = new GymOwner(username, name, email, contactNo, age, user.getPassword(), userid, user.getRoleId(), upiId);
                 }
             }
         } catch (SQLException e) {

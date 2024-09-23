@@ -195,7 +195,7 @@ public class CustomerFlipfitMenu {
             System.out.println(ColourConstants.PASTEL_RED + "Invalid CVV." + ColourConstants.RESET);
             return false;
         }
-
+        System.out.println("Payment Processing....");
         // Assuming payment is successful; you can integrate with a payment service here.
         System.out.println(ColourConstants.PASTEL_GREEN + "Payment successful!" + ColourConstants.RESET);
         return true;
