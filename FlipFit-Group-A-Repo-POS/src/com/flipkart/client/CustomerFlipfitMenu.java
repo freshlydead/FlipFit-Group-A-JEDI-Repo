@@ -79,8 +79,7 @@ public class CustomerFlipfitMenu {
             System.out.println("4. View Bookings");
             System.out.println("5. Cancel Booking");
             System.out.println("6. Change Password");
-            System.out.println("7. Make Payment");
-            System.out.println("8. Logout");
+            System.out.println("7. Logout");
             System.out.print("Enter your choice: ");
             userChoice = scanner.nextInt();
             scanner.nextLine(); // consume the newline
@@ -106,9 +105,6 @@ public class CustomerFlipfitMenu {
                     changePassword(customer);
                     break;
                 case 7:
-                    makePayment();
-                    break;
-                case 8:
                     System.out.println(ColourConstants.PASTEL_GREEN + "Logging Out!" + ColourConstants.RESET);
                     break;
                 default:
@@ -125,11 +121,10 @@ public class CustomerFlipfitMenu {
         });
         System.out.print("Enter City: ");
         String city = scanner.nextLine();
-        int c = 1;
+
         List<GymCenter> gymCenters = customerService.getGymCenters(city.toLowerCase());
-        for (GymCenter gymCenter : gymCenters) {
-            System.out.println(c + ". " + gymCenter.getGymName());
-            c++;
+        for (int c = 0; c < gymCenters.size(); c++) {
+            System.out.println((c + 1) + ". " + gymCenters.get(c).getGymName());
         }
 
         System.out.print("Enter Gym Name: ");
@@ -151,18 +146,61 @@ public class CustomerFlipfitMenu {
                 }
 
                 System.out.print("Choose a slot (enter the number): ");
-                int choice = scanner.nextInt();
+                int choice = Integer.parseInt(scanner.nextLine());
                 Slot slot = slots.get(choice - 1);
-                if (bookingService.bookSlot(customer.getUserid(), gymCenterSel, slot)) {
-                    System.out.println(ColourConstants.PASTEL_GREEN + "Booking successful!" + ColourConstants.RESET);
+
+
+                // Call the payment method here
+                if (makePayment()) {
+                    if (bookingService.bookSlot(customer.getUserid(), gymCenterSel, slot)) {
+                        System.out.println(ColourConstants.PASTEL_GREEN + "Booking successful!" + ColourConstants.RESET);
+                    } else {
+                        System.out.println(ColourConstants.PASTEL_RED + "Booking failed!" + ColourConstants.RESET);
+                    }
                 } else {
-                    System.out.println(ColourConstants.PASTEL_RED + "Booking failed!" + ColourConstants.RESET);
+                    System.out.println(ColourConstants.PASTEL_RED + "Payment failed. Booking not completed." + ColourConstants.RESET);
                 }
             }
         } else {
             System.out.println(ColourConstants.PASTEL_RED + "Invalid Gym Name." + ColourConstants.RESET);
         }
     }
+
+    /**
+     * Handles the payment process for bookings.
+     * Returns true if payment is successful, false otherwise.
+     */
+    public boolean makePayment() {
+        System.out.println("Payment Processing...");
+        System.out.print("Enter Card Number: ");
+        String cardNumber = scanner.nextLine();
+        if (!ValidateCard.validateCardNumber(cardNumber)) {
+            System.out.println(ColourConstants.PASTEL_RED + "Invalid card number." + ColourConstants.RESET);
+            return false;
+        }
+
+        System.out.print("Enter Expiry Date (MM/YY): ");
+        String expiryDate = scanner.nextLine();
+        if (!ValidateCard.validateExpiryDate(expiryDate)) {
+            System.out.println(ColourConstants.PASTEL_RED + "Invalid expiry date." + ColourConstants.RESET);
+            return false;
+        }
+
+        System.out.print("Enter Cardholder Name: ");
+        String cardholderName = scanner.nextLine();
+
+        System.out.print("Enter CVV: ");
+        String cvv = scanner.nextLine();
+        if (!ValidateCard.validateCVV(cvv)) {
+            System.out.println(ColourConstants.PASTEL_RED + "Invalid CVV." + ColourConstants.RESET);
+            return false;
+        }
+
+        // Assuming payment is successful; you can integrate with a payment service here.
+        System.out.println(ColourConstants.PASTEL_GREEN + "Payment successful!" + ColourConstants.RESET);
+        return true;
+    }
+
 
     public void viewBookings(String userId) {
         List<Booking> bookings = customerService.viewBookings(userId);
@@ -267,36 +305,4 @@ public class CustomerFlipfitMenu {
         }
     }
 
-    /**
-     * Handles the payment process for bookings.
-     */
-    public void makePayment() {
-        System.out.println("Payment Processing...");
-        System.out.print("Enter Card Number: ");
-        String cardNumber = scanner.nextLine();
-        if (!ValidateCard.validateCardNumber(cardNumber)) {
-            System.out.println(ColourConstants.PASTEL_RED + "Invalid card number." + ColourConstants.RESET);
-            return;
-        }
-
-        System.out.print("Enter Expiry Date (MM/YY): ");
-        String expiryDate = scanner.nextLine();
-        if (!ValidateCard.validateExpiryDate(expiryDate)) {
-            System.out.println(ColourConstants.PASTEL_RED + "Invalid expiry date." + ColourConstants.RESET);
-            return;
-        }
-
-        System.out.print("Enter Cardholder Name: ");
-        String cardholderName = scanner.nextLine();
-
-        System.out.print("Enter CVV: ");
-        String cvv = scanner.nextLine();
-        if (!ValidateCard.validateCVV(cvv)) {
-            System.out.println(ColourConstants.PASTEL_RED + "Invalid CVV." + ColourConstants.RESET);
-            return;
-        }
-
-        // Assuming payment is successful; you can integrate with a payment service here.
-        System.out.println(ColourConstants.PASTEL_GREEN + "Payment successful!" + ColourConstants.RESET);
-    }
 }
