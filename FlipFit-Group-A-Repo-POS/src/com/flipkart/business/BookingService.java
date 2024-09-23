@@ -62,7 +62,7 @@ public class BookingService {
         LocalDateTime bookingDate = slot_sel.getStarttime();
         Booking newbooking = new Booking(userid, bkid, gymCenter.getGymID(), slot_sel.getSlotID(), bookingDate);
         if(slot_sel.getCapacity()>0){
-//            If slot_sel already exists under current userID in booking --> CancelThisBooking()
+//            If the slot_sel already exists under current userID in booking --> CancelThisBooking()
             if(customerDAO.bookingExists(newbooking)){
                 if(cancelSlotBooking(newbooking.getUserID(), slot_sel.getSlotID())){
                     System.out.println("Previous overlapping booking is cancelled.");
