@@ -9,6 +9,8 @@ import com.flipkart.dao.GymOwnerDAOImpl;
 import com.flipkart.exception.InvalidLogin;
 import com.flipkart.constant.ColourConstants;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class FlipfitApplication {
@@ -28,6 +30,7 @@ public class FlipfitApplication {
             System.out.println(ColourConstants.PASTEL_BLUE + "-----------------------------------------------------------------------------------" + ColourConstants.RESET);
             System.out.println(ColourConstants.PASTEL_YELLOW + "----------------------- Welcome to FlipFit: Your Fitness Partner --------------------" + ColourConstants.RESET);
             System.out.println(ColourConstants.PASTEL_BLUE + "-----------------------------------------------------------------------------------" + ColourConstants.RESET);
+            displayCurrentDateTime(); // Display current date and time
             System.out.println(ColourConstants.PASTEL_YELLOW + "1. Login" + ColourConstants.RESET);
             System.out.println(ColourConstants.PASTEL_YELLOW + "2. Registration of the GYM Customer" + ColourConstants.RESET);
             System.out.println(ColourConstants.PASTEL_YELLOW + "3. Registration of the GYM Owner" + ColourConstants.RESET);
@@ -59,6 +62,14 @@ public class FlipfitApplication {
                     System.out.println(ColourConstants.PASTEL_RED + "Invalid choice. Please try again." + ColourConstants.RESET);
             }
         }
+    }
+
+    public static void displayCurrentDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
+
+        System.out.println(ColourConstants.PASTEL_GREEN + formattedDateTime + ColourConstants.RESET);
     }
 
     public static void handleLogin() throws InvalidLogin {
