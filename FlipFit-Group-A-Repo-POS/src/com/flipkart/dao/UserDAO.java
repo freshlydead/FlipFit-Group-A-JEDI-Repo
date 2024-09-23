@@ -5,8 +5,9 @@ import com.flipkart.bean.GymOwner;
 import com.flipkart.bean.User;
 
 public interface UserDAO {
-    public User validateUser(String username, String password);
-    public boolean registerGymOwner(GymOwner gymOwner);
-    public boolean registerCustomer(Customer customer);
-    public boolean updateUser(User user);
+    User validateUser(String username, String password);
+    boolean registerGymOwner(GymOwner gymOwner);
+    boolean registerCustomer(Customer customer);
+    boolean updateUser(User user);
+    boolean addUser(User user);
 }

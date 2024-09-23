@@ -1,4 +1,3 @@
-// Package declaration
 package com.flipkart.client;
 
 import com.flipkart.bean.*;
@@ -9,6 +8,7 @@ import com.flipkart.business.UserService;
 import com.flipkart.constant.ColourConstants;
 import com.flipkart.dao.CityDAO;
 import com.flipkart.dao.CityDAOImpl;
+import com.flipkart.validator.ValidateCard;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,11 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CustomerFlipfitMenu {
 
     private Scanner scanner = new Scanner(System.in);
-
-    // UserService instance to handle user-related operations
     private UserService userServiceInterface;
-
-    // CustomerService instance to handle customer-related operations
     private CustomerService customerService = new CustomerService();
     private GymOwnerService gymOwnerService = new GymOwnerService();
     private BookingService bookingService = new BookingService();
@@ -74,7 +70,7 @@ public class CustomerFlipfitMenu {
         int userChoice = -1;
 
         // Loop until the customer chooses to exit
-        while (userChoice != 7) {
+        while (userChoice != 8) {
             // Display customer menu options
             System.out.println("Customer Menu:");
             System.out.println("1. View Profile");
@@ -83,7 +79,8 @@ public class CustomerFlipfitMenu {
             System.out.println("4. View Bookings");
             System.out.println("5. Cancel Booking");
             System.out.println("6. Change Password");
-            System.out.println("7. Logout");
+            System.out.println("7. Make Payment");
+            System.out.println("8. Logout");
             System.out.print("Enter your choice: ");
             userChoice = scanner.nextInt();
             scanner.nextLine(); // consume the newline
@@ -109,6 +106,9 @@ public class CustomerFlipfitMenu {
                     changePassword(customer);
                     break;
                 case 7:
+                    makePayment();
+                    break;
+                case 8:
                     System.out.println(ColourConstants.PASTEL_GREEN + "Logging Out!" + ColourConstants.RESET);
                     break;
                 default:
@@ -265,5 +265,38 @@ public class CustomerFlipfitMenu {
         } else {
             System.out.println(ColourConstants.PASTEL_RED + "Wrong Old Password." + ColourConstants.RESET);
         }
+    }
+
+    /**
+     * Handles the payment process for bookings.
+     */
+    public void makePayment() {
+        System.out.println("Payment Processing...");
+        System.out.print("Enter Card Number: ");
+        String cardNumber = scanner.nextLine();
+        if (!ValidateCard.validateCardNumber(cardNumber)) {
+            System.out.println(ColourConstants.PASTEL_RED + "Invalid card number." + ColourConstants.RESET);
+            return;
+        }
+
+        System.out.print("Enter Expiry Date (MM/YY): ");
+        String expiryDate = scanner.nextLine();
+        if (!ValidateCard.validateExpiryDate(expiryDate)) {
+            System.out.println(ColourConstants.PASTEL_RED + "Invalid expiry date." + ColourConstants.RESET);
+            return;
+        }
+
+        System.out.print("Enter Cardholder Name: ");
+        String cardholderName = scanner.nextLine();
+
+        System.out.print("Enter CVV: ");
+        String cvv = scanner.nextLine();
+        if (!ValidateCard.validateCVV(cvv)) {
+            System.out.println(ColourConstants.PASTEL_RED + "Invalid CVV." + ColourConstants.RESET);
+            return;
+        }
+
+        // Assuming payment is successful; you can integrate with a payment service here.
+        System.out.println(ColourConstants.PASTEL_GREEN + "Payment successful!" + ColourConstants.RESET);
     }
 }

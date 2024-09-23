@@ -45,7 +45,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 //
 
 
-
     public Customer getCustomer(User user) {
         Customer customer = null;
         String sql = "SELECT * FROM customer WHERE username = ?";
@@ -72,7 +71,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         return customer;
     }
 
-    public boolean updateProfile(Customer customer){
+    public boolean updateProfile(Customer customer) {
         String sql = "UPDATE customer SET username = ?, name = ?, email = ?, contactNo = ?, age = ? WHERE userid = ?";
 
         try (Connection connection = dbutils.getConnection();
@@ -110,7 +109,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             // Execute the insert operation
             int rowsInserted = ps.executeUpdate();
             return rowsInserted > 0;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             dbutils.closeConnection();
@@ -150,16 +149,16 @@ public class CustomerDAOImpl implements CustomerDAO {
         try (Connection conn = dbutils.getConnection();
              PreparedStatement deleteBookingStmt = conn.prepareStatement(deleteBookingSql)) {
 
-                // Delete the booking
-                deleteBookingStmt.setString(1, userID);
-                deleteBookingStmt.setString(2, slotID);
-                int rowsDeleted = deleteBookingStmt.executeUpdate();
+            // Delete the booking
+            deleteBookingStmt.setString(1, userID);
+            deleteBookingStmt.setString(2, slotID);
+            int rowsDeleted = deleteBookingStmt.executeUpdate();
 
-                if (rowsDeleted > 0) {
-                    // Update the slot capacity
-                    updateCapacity(slotID, 1);
-                    return true;
-                }
+            if (rowsDeleted > 0) {
+                // Update the slot capacity
+                updateCapacity(slotID, 1);
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -229,5 +228,4 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         return bookings;
     }
-
 }

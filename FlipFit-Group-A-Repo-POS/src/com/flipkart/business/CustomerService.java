@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CustomerService implements CustomerServiceInterface{
-//	private int cnt = getTableCnt("user");
+	//	private int cnt = getTableCnt("user");
 	public HashMap<String, Customer> customers = new HashMap<String, Customer>();
 	UserService userService=new UserService();
 	private CustomerDAO customerDAO = new CustomerDAOImpl();
@@ -20,7 +20,7 @@ public class CustomerService implements CustomerServiceInterface{
 	Scanner scanner = new Scanner(System.in);
 
 	public void createCustomer(String username, String name, String email, String phone, int age,
-                                      String password) {
+							   String password) {
 		String id = "0" + sharedState.getCntUsers();
 		sharedState.incrementCntUsers();
 		Role role = new Role("C", "Customer");

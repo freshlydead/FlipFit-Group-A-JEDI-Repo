@@ -42,14 +42,14 @@ public interface CustomerServiceInterface {
      * Cancels the bookings of a customer by their user ID.
      *
      * @param userId the ID of the user
-//     */
+    //     */
 //    void cancelbookings(String userId);
 
     /**
      * Edits the profile information of a customer.
      *
      * @param customer the Customer object containing updated profile information
-//     */
+    //     */
     public boolean editProfile(Customer customer);
 
 }

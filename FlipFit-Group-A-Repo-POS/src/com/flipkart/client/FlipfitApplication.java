@@ -7,38 +7,23 @@ import com.flipkart.business.UserService;
 import com.flipkart.dao.CustomerDAOImpl;
 import com.flipkart.dao.GymOwnerDAOImpl;
 import com.flipkart.exception.InvalidLogin;
-import com.flipkart.constant.ColourConstants; // Make sure to import your color constants
+import com.flipkart.constant.ColourConstants;
 
 import java.util.Scanner;
 
-/**
- * This class is the entry point for the Flipfit application.
- * It handles user interactions for login, registration, password changes, and manages navigation
- * to different user menus based on the user role.
- */
 public class FlipfitApplication {
-    // Static instance of AdminFlipfitMenu to be used throughout the application
     static AdminFlipfitMenu adminFlipfitMenu = new AdminFlipfitMenu();
     static GymOwnerDAOImpl gymOwnerDAOImpl = new GymOwnerDAOImpl();
     static CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
 
-    /**
-     * Main method to start the Flipfit application.
-     * It displays the main menu and handles user choices.
-     *
-     * @param args command-line arguments
-     * @throws InvalidLogin if login credentials are invalid
-     */
     public static void main(String[] args) throws InvalidLogin {
         Scanner scanner = new Scanner(System.in);
-        FlipfitApplication app = new FlipfitApplication();
         CustomerFlipfitMenu customerFlipfitMenu = new CustomerFlipfitMenu(scanner);
         ForgotPasswordMenu forgotPasswordMenu = new ForgotPasswordMenu(scanner);
         GymOwnerFlipfitMenu gymOwnerFlipfitMenu = new GymOwnerFlipfitMenu(scanner);
 
         int choice = -1;
 
-        // Main menu loop
         while (choice != 4) {
             System.out.println(ColourConstants.PASTEL_BLUE + "-----------------------------------------------------------------------------------" + ColourConstants.RESET);
             System.out.println(ColourConstants.PASTEL_YELLOW + "----------------------- Welcome to FlipFit: Your Fitness Partner --------------------" + ColourConstants.RESET);
@@ -53,16 +38,13 @@ public class FlipfitApplication {
 
             switch (choice) {
                 case 1:
-                    // Handle user login
                     handleLogin();
                     break;
                 case 2:
-                    // Register a new customer
                     customerFlipfitMenu.registerCustomer(scanner);
                     System.out.println(ColourConstants.PASTEL_GREEN + "Customer Registered" + ColourConstants.RESET);
                     break;
                 case 3:
-                    // Register a new gym owner
                     try {
                         gymOwnerFlipfitMenu.registerGymOwner(scanner);
                         System.out.println(ColourConstants.PASTEL_GREEN + "Gym Owner Registered" + ColourConstants.RESET);
@@ -71,7 +53,6 @@ public class FlipfitApplication {
                     }
                     break;
                 case 4:
-                    // Exit the application
                     System.out.println(ColourConstants.PASTEL_RED + "Exiting the application." + ColourConstants.RESET);
                     break;
                 default:
@@ -80,28 +61,19 @@ public class FlipfitApplication {
         }
     }
 
-    /**
-     * Handles user login, determines user role, and navigates to the appropriate menu.
-     *
-     * @throws InvalidLogin if the login attempt fails
-     */
     public static void handleLogin() throws InvalidLogin {
         Scanner scanner = new Scanner(System.in);
-
-        // Prompt the user for username and password
         System.out.print(ColourConstants.PASTEL_BLUE + "Enter your username: " + ColourConstants.RESET);
         String username = scanner.nextLine();
         UserService userService = new UserService();
         System.out.print(ColourConstants.PASTEL_BLUE + "Enter password: " + ColourConstants.RESET);
         String password = scanner.nextLine();
 
-        // Validate user credentials and get user details
         User user = userService.login(username, password);
         if (user != null) {
             System.out.println(ColourConstants.PASTEL_GREEN + "Logged in successfully." + ColourConstants.RESET);
             String roleId = user.getRoleId();
 
-            // Navigate to the appropriate menu based on user role
             switch (roleId) {
                 case "A":
                     System.out.println(ColourConstants.PASTEL_YELLOW + "Welcome Admin !!!" + ColourConstants.RESET);
